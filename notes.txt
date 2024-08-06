@@ -1,0 +1,82 @@
+MVP: Your task is to perform full crud on items in a User’s pantry - an embedded data schema on the user model.
+
+Use the following user stories to guide the functionality and features of your application:
+
+app.POST
+app.GET
+app.put
+app.delete
+
+create
+read
+update
+delete
+
+
+Action	Route	                            HTTP Verb
+Index	‘/users/:userId/foods’	            GET
+New	    ‘/users/:userId/foods/new’	        GET
+Create	‘/users/:userId/foods’	            POST
+Show	‘/users/:userId/foods/:itemId’	    GET
+Edit	‘/users/:userId/foods/:itemId/edit’	GET
+Update	‘/users/:userId/foods/:itemId’	    PUT
+Delete	‘/users/:userId/foods/:itemId’	    DELETE
+
+
+1. As a User (AAU), I want to sign up for an account and sign in, so that I can access my personal user profile and manage my pantry.
+signUp/signIn route, signIn.ejs
+GET new.ejs
+
+2. AAU, I want an easy and consistent way to navigate through the site, whether I am signed in or not. I need to quickly access options to sign up, sign in, view my pantry, or sign out, depending on my current status.
+a href links on pages
+
+
+3. AAU, I need a dedicated page to view all items in my pantry, to easily manage and review what I have stored.
+show.ejs GET/found
+
+4. AAU, I want to easily find and click on an ‘Add New Item’ link, which takes me to a form for adding new items to my pantry
+new.ejs/ POST/GET
+
+5. AAU, after filling out the pantry item form, I want to submit it and receive confirmation that the item has been saved in my pantry.
+render?
+
+
+6. AAU, I need the ability to edit and delete items in my pantry, allowing me full control over managing my stored items.
+delete
+
+7. AAU, I am interested in viewing a list of all other app users, to foster a sense of community and interaction within the app.
+read
+show.ejs
+app.get
+
+
+8. AAU, I want the option to click on another user’s profile and view all the items in their pantry, to exchange ideas or find inspiration for my own pantry.
+read
+show.ejs
+
+
+
+
+
+  <% if (user) { %>
+    <h1>Welcome to the app, <%= user.username %>!</h1>
+    <p>
+      <a href="/auth/sign-out">Sign out</a>
+    </p>
+  <% } else { %>
+    <h1>Welcome to the app, guest.</h1>
+    <p>
+      <a href="/auth/sign-up">Sign up</a> or
+      <a href="/auth/sign-in">Sign in</a>.
+    </p>
+  <% } %>
+
+
+
+  router.get('/users/:userId/foods', (req, res) => {
+    res.render('index.ejs')
+  
+  })
+  
+router.get('/users/:userId/foods/new', (req, res) => {
+    res.render('new.ejs')

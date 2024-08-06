@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <%- include('../partials/_navbar.ejs') %>
+    
+    <form action="/users/<%=user._id%>/foods" method="POST">
+        <label for="text">Search Pantries:</label>
+        <input type="text" name="text" id="text" />
+        <label for="isFullRecipe">Did you love it?</label>
+        <input type="checkbox" name="isFullRecipe" id="isFullRecipe" />
+        <button type="submit">Add To My Pantry</button>
+      </form>
+      <a href="/foods/">Back to foods</a>
+</body>
+</html>

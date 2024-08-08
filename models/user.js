@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
 
 const foodSchema = new mongoose.Schema({
-  pantry: { type: String, required: true},
-  isInPantry: { type: Boolean, required: true}
+  text: { type: String, required: true},
 });
 const userSchema = mongoose.Schema({
   username: {

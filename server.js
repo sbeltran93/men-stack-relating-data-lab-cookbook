@@ -16,13 +16,17 @@ const port = process.env.PORT ? process.env.PORT : '3000';
 
 mongoose.connect(process.env.MONGODB_URI);
 
+mongoose.connection.once('open', () => {
+  console.log('MongoDB is showing love')
+})
+
 mongoose.connection.on('connected', () => {
   console.log(`Connected to MongoDB ${mongoose.connection.name}.`);
 });
 
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
-// app.use(morgan('dev'));
+app.use(morgan('dev'));
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -59,16 +63,6 @@ app.post('/users/:userId/foods', async (req, res) => {
     res.status(400).json({msg: error.message})
   }
 })
-
-
-
-
-
-
-
-
-
-
 
 
 

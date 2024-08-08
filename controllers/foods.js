@@ -5,20 +5,18 @@ const router = express.Router();
 
 const User = require('../models/user.js');
 
-const ensureAuthenticated = (req, res, next) => {
-    if (req.session && req.session.user._id) {
-        return next();
-    }
-    res.redirect('/login')
-};
 
 // router logic will go here - will be built later on in the lab
 
 module.exports = router;
 
 
-router.get('/', (req, res) => {
-    res.render('foods/index.ejs')
+router.get('/', async (req, res) => {
+        const userId = req.session.user._id;
+        const user = await User.findById(userId);
+        res.render('foods/index.ejs', {   
+            foundPantry: user.pantry
+        })
   });
   
 router.get('/new', (req, res) => {
@@ -30,27 +28,29 @@ router.post('/', async (req, res)=> {
       try {
         const foundUser = await User.findById(req.session.user._id)
         foundUser.pantry.push(req.body)
+        console.log(foundUser)
         await foundUser.save()
-        res.redirect(`users/${foundUser._id}/foods`)
+        console.log('done')
+        res.redirect(`/users/${foundUser._id}/foods`)
       } catch (error) {
-          res.redirect('/')
-      }
-  })  
 
-  router.get('/pantry', ensureAuthenticated, async (req, res) => {
+      }
+  })
+
+  router.delete('/:id', async (req, res) => {
     try {
         const userId = req.session.user._id;
-        const user = await User.findById(user._id);
-        
+        const itemId = req.params.id
+        const user = await User.findById(userId);
         if (!user) {
-            return res.status(404).send('User not found');
+            return res.redirect('/')
         }
-        res.locals.foundPantry = user.pantry;
-        res.render('/views/pantry/index.ejs', {
-            foundPantry: user.pantry
-        });
-    } catch (error) {
-        res.status(400).json({ msg: error.message });
-        
+        user.pantry.pull({ _id: itemId })
+        await user.save()
+        res.redirect(`/users/${userId}/foods`)
+        }   catch (error) {
+        console.error(error)
+        res.redirect('/')
     }
-  })
+})
+

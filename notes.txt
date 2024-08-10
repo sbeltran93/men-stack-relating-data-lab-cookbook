@@ -14,6 +14,7 @@ delete
 
 
 Action	Route	                            HTTP Verb
+
 Index	‘/users/:userId/foods’	            GET
 New	    ‘/users/:userId/foods/new’	        GET
 Create	‘/users/:userId/foods’	            POST
@@ -110,3 +111,34 @@ router.get('/users/:userId/foods/new', (req, res) => {
     res.render('foods/index.ejs', {
     foundPantry: user.pantry
 })
+
+
+
+
+
+
+
+
+                const deleteFood = await User.deleteOne({ _id: req.params.id })
+        if (deleteFood.deletedCount === 0) {
+          return res.status(404).send('Food item not found')
+        }   
+        res.status(200).send('Food item deleted');
+    }   catch (error) {
+      res.status(500).send('Server error')
+
+
+      router.put('/:id', async (req, res) => {
+  const userId = req.session.user._id;
+  const user = await User.findById(userId);
+  // const item = req.params.item._id;
+  try {
+      const updatedFood = pantry.id.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
+      res.redirect(`/users/${updatedUser._id}`)
+  } catch (error) {
+      res.status(400).json({ msg: error.message })
+  }
+})
+
+
+// const item = req.params.item._id;

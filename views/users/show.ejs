@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <h1><%= user._id %>'s Pantry</h1>
+    <h1><%= user.username %>'s Pantry</h1>
 
     <% user.pantry.forEach(item => { %>
         <li> <%= item.text %>

@@ -28,7 +28,7 @@ router.get('/:id', async (req, res) => {
         })
     } catch (error) {
         res.status(400).json({ msg: error.message }) 
-    }   res.redirect('/users')
+    }   
 })
 
 

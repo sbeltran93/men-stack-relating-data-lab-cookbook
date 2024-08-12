@@ -10,6 +10,14 @@
     <h1>Community Page</h1>
 
 
-    <p><a href="/views/users/">Explore our Community!</a></p>
+    <% users.forEach((user) => { %>
+        <li>
+            <%= user._id%> 
+
+            </a>
+        </li>
+    
+    <% }) %>
+
 </body>
 </html>

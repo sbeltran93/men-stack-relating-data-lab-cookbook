@@ -9,27 +9,29 @@ const User = require('../models/user.js');
 
 
 
-
-
-router.get('/users', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
-        const foundUser = await User.find({})
+        const foundUsers = await User.find();
         res.render('users/index.ejs', {
-            user: foundUser
-        })
+            users: foundUsers
+         })
     } catch (error) {
         res.status(400).json({ msg: error.message })
     }
     
 })
 
-
-
-
-
-
-
-
+router.get('/:id', async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        const pantryItems = await pantry.find({ userId: user._id });
+        res.render('users/show.ejs', {
+            pantryItems
+        })
+    } catch (error) {
+        res.status(400).json({ msg: error.message }) 
+    }
+})
 
 
 module.exports = router;

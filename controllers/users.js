@@ -3,9 +3,7 @@
 const express = require('express');
 const router = express.Router();
 
-const User = require('../models/user.js');
-
-
+const User = require('../models/user');
 
 
 
@@ -24,13 +22,13 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const user = await User.findById(req.params.id);
-        const pantryItems = await pantry.find({ userId: user._id });
+
         res.render('users/show.ejs', {
-            pantryItems
+            user
         })
     } catch (error) {
         res.status(400).json({ msg: error.message }) 
-    }
+    }   res.redirect('/users')
 })
 
 

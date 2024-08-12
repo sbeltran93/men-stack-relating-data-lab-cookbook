@@ -8,14 +8,14 @@
 <body>
     <h1><%= user._id %>'s Pantry</h1>
 
-<% pantryItems.forEach(item => { %>
- <li> <%= item.text %> - <%= pantry.text %>
+    <% user.pantry.forEach(item => { %>
+        <li> <%= item.text %>
+       
+        </li>
+       <% }) %>
 
- </li>
-<% }) %>
 
 
- <p><a href="/users/<%=user._id%>/foods/ <%=item._id%>">Explore our Community!</a></p>
 <a href="/users">Back to Community</a>
 </body>
 </html>

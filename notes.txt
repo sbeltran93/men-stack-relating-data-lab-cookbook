@@ -142,3 +142,16 @@ router.get('/users/:userId/foods/new', (req, res) => {
 
 
 // const item = req.params.item._id;
+
+
+<% pantryItems.forEach(item => { %>
+ <li> <%= item.text %>
+
+ </li>
+<% }) %>
+
+
+        const pantryItems = await pantry.find({ userId: user._id });
+
+
+         <p><a href="/users/<%=user._id%>/foods/ <%=item._id%>">Explore our Community!</a></p>
